@@ -22,5 +22,5 @@ containers:
     ports:
       - 8089
     volumes:
-      - $HOME/.ssh/id_ed25519.pub:/etc/sshd/authorized_keys # figure out the optimal destination
-      - $docker_vol_data:/opt/splunk
+      - $PWD/output/id_test.pub:/home/ansible/.ssh/authorized_keys
+      - $dynamic:/opt/splunk

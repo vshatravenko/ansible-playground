@@ -1,0 +1,8 @@
+plugin: community.docker.docker_containers
+connection: ssh
+strict: true
+filters:
+  - include: inventory_hostname.startswith('playground')
+  - exclude: true
+# Might want to create static groups referencing dynamic groups
+keyed_groups: []

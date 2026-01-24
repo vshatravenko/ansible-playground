@@ -1,0 +1,28 @@
+{#
+    vim: ft=jinja
+#}
+
+{%- macro service(svc) %}
+{{ svc.name }}:
+  image: {{ svc.image }}
+  ports:
+  {%- for port in svc.ports %}
+    - {{ port }}
+  {%- endfor %}
+  volumes:
+  {%- for vol in svc.volumes %}
+    - {{ vol }}
+  {%- endfor -%}
+{%- endmacro -%}
+
+name: playground
+
+services:
+{%- for svc in services -%}
+{{ service(svc) | indent(2) }}
+{%- endfor %}
+
+volumes:
+{%- for vol in volumes %}
+  {{ vol }}:
+{%- endfor %}
