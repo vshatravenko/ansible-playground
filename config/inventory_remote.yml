@@ -1,0 +1,5 @@
+playground:
+  hosts:
+    ap:
+      ansible_user: root
+      ansible_host: 165.227.37.132

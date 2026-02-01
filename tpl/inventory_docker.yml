@@ -1,4 +1,4 @@
-connection: ssh
+connection_type: ssh
 filters:
 - include: inventory_hostname.startswith('ap')
 - exclude: true

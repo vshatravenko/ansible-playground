@@ -24,6 +24,7 @@ containers:
   base:
     image: valshatravenko/ansible-target:debian-stable-slim
     platform: linux/amd64
+    env: {}
     ports:
       - 8089
     volumes:

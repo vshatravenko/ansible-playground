@@ -5,7 +5,7 @@ BUILD_ARCH 	?= $(shell uname -m)
 PRIV_KEY ?= id_lol
 PUB_KEY_B64 ?= $(shell cat $(PRIV_KEY).pub | base64 -w0)
 OUT_DIR ?= output
-SSH_PRIV_KEY ?= $(OUT_DIR)/id_test
+SSH_PRIV_KEY ?= $(OUT_DIR)/id_ap
 SSH_PUB_KEY ?= $(SSH_PRIV_KEY).pub
 
 .PHONY: build

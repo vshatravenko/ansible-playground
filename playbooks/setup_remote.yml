@@ -1,0 +1,59 @@
+# This playbook should be executed to set up
+# a remote playground(e.g. on a cloud VM)
+- name: "Install Docker & set up the playground"
+  hosts: playground
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Configure Docker prereqs
+      when: "'docker-ce' not in ansible_facts.packages"
+      ansible.builtin.shell:
+        cmd: |
+          apt update
+          apt install ca-certificates curl
+          install -m 0755 -d /etc/apt/keyrings
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+          chmod a+r /etc/apt/keyrings/docker.asc
+          tee /etc/apt/sources.list.d/docker.sources <<EOF
+          Types: deb
+          URIs: https://download.docker.com/linux/ubuntu
+          Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+          Components: stable
+          Signed-By: /etc/apt/keyrings/docker.asc
+          EOF
+          apt update
+      changed_when: true
+      become: true
+
+    - name: Install Docker packages
+      when: "'docker-ce' not in ansible_facts.packages"
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      changed_when: false
+      become: true
+
+    - name: Install Ansible
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - ansible-core
+      changed_when: false
+      become: true
+
+    - name: Clone the playground repo
+      ansible.builtin.git:
+        repo: https://github.com/vshatravenko/ansible-playground
+        dest: "~/ansible-playground"
+        single_branch: true
+        version: master

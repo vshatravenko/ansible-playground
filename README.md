@@ -49,6 +49,24 @@ ap-deployer-1 | CHANGED | rc=0 >>
 f35dd5ef2bb0
 ```
 
+### Remote Playground Instance
+
+Due to performance limitations of emulating amd64 on ARM,
+testing amd64-only Ansible roles/playbooks is feasible
+only on a remote host.
+If you have an instance you'd like to configure the playground
+on, set its IP address in `config/inventory_remote.yml`
+Then, provision the playground:
+
+```sh
+ansible-playbook \
+  -i config/inventory_remote.yml \
+  playbooks/setup_remote.yml
+```
+
+Once done, you should have all the deps installed
+and `ansible_playground/` dir present in target user's `$HOME`
+
 ### Ansible Target Docker image
 
 To build the target image:
