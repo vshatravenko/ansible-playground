@@ -1,24 +1,29 @@
 groups:
   search:
+    enabled: false
     count: 5
     container: base
   clustermanager:
+    enabled: false
     count: 3
     container: base
   indexer:
+    enabled: false
     count: 5
     container: base
   deployer:
+    enabled: true
     count: 1
     container: base
   licensemanager:
+    enabled: true
     count: 1
     container: base
 
-
 containers:
   base:
-    image: valshatravenko/debian-sshd
+    image: valshatravenko/ansible-target:debian-stable-slim
+    platform: linux/amd64
     ports:
       - 8089
     volumes:

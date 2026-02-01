@@ -10,7 +10,7 @@ SSH_PUB_KEY ?= $(SSH_PRIV_KEY).pub
 
 .PHONY: build
 build:
-	docker build -a TARGET_USER=$(TARGET_USER) \
+	docker build --build-arg TARGET_USER=$(TARGET_USER) \
 		--platform linux/$(BUILD_ARCH) \
 		-t $(IMAGE) .
 
@@ -25,6 +25,22 @@ run-local: ssh-key
 		--platform linux/$(BUILD_ARCH) \
 		--name sshd \
 		-d $(IMAGE)
+
+.PHONY: render
+render: ssh-key
+	@./bin/render.py
+
+.PHONY: compose-up
+compose-up:
+	@docker compose up -Vd
+
+.PHONY: compose-down
+compose-down:
+	@docker compose down -t 1
+
+.PHONY: compose-erase
+compose-erase:
+	@docker compose down -t 1 -v
 
 $(SSH_PRIV_KEY):
 	mkdir -p $(OUT_DIR)

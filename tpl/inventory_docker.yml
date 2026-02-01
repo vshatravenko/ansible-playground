@@ -2,8 +2,8 @@ connection: ssh
 filters:
 - include: inventory_hostname.startswith('ap')
 - exclude: true
-groups:
-  deployer: '"deployer" in docker_name'
-  licensemanager: '"licensemanager" in docker_name'
+# docker_name is populated by the inv
+# docker_config maps to `docker inspect *id*` "Config" field
+groups: {}
 plugin: community.docker.docker_containers
 strict: true

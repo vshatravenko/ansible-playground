@@ -4,7 +4,9 @@
 
 {%- macro service(svc) %}
 {{ svc.name }}:
+  container_name: ap-{{ svc.name }}
   image: {{ svc.image }}
+  platform: {{ svc.platform }}
   ports:
   {%- for port in svc.ports %}
     - {{ port }}
@@ -15,7 +17,7 @@
   {%- endfor -%}
 {%- endmacro -%}
 
-name: playground
+name: ap
 
 services:
 {%- for svc in services -%}
