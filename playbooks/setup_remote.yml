@@ -47,6 +47,7 @@
         state: present
       loop:
         - git
+        - make
         - ansible-core
       changed_when: false
       become: true

@@ -54,3 +54,12 @@ ssh-key: $(SSH_PRIV_KEY)
 ssh-local:
 	$(eval SSHD_IP = $(shell docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sshd))
 	ssh -i $(PRIV_KEY) $(TARGET_USER)@$(SSHD_IP)
+
+.PHONY: setup-remote
+setup-remote:
+	ansible-playbook -i config/inventory_remote.yml \
+		playbooks/setup_remote.yml
+
+.PHONY: ssh-remote
+ssh-remote:
+	ssh root@$(shell yq '.[][][].ansible_host' config/inventory_remote.yml)

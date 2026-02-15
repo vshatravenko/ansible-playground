@@ -26,7 +26,8 @@ containers:
     platform: linux/amd64
     env: {}
     ports:
+      - 22
       - 8089
     volumes:
-      - $PWD/output/id_test.pub:/home/ansible/.ssh/authorized_keys
+      - $PWD/output/id_ap.pub:/home/ansible/.ssh/authorized_keys
       - $dynamic:/opt/splunk
