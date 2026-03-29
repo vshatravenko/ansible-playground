@@ -1,0 +1,51 @@
+groups:
+  postgres:
+    enabled: true
+    count: 1
+    container: systemd
+  deployer:
+    enabled: false
+    count: 1
+    container: base-sshd
+  licensemanager:
+    enabled: false
+    count: 1
+    container: base-sshd
+
+containers:
+  systemd:
+    image: valshatravenko/ansible-target:debian-stable-systemd
+    platform: linux/amd64
+    env: {}
+    ports:
+      - 22
+      - 8089
+      - 5432
+    volumes:
+      - $PWD/output/id_ap.pub:/home/ansible/.ssh/authorized_keys
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - $dynamic:/opt/splunk
+    privileged: true
+    cgroup: host
+
+  base-sshd:
+    image: valshatravenko/ansible-target:debian-stable
+    platform: linux/amd64
+    env: {}
+    ports:
+      - 22
+      - 8089
+      - 5432
+    volumes:
+      - $PWD/output/id_ap.pub:/home/ansible/.ssh/authorized_keys
+      - $dynamic:/opt/splunk
+
+  base:
+    image: debian:stable
+    platform: linux/amd64
+    env: {}
+    ports:
+      - 22
+      - 8089
+      - 5432
+    volumes: {}

@@ -15,6 +15,12 @@
   {%- for vol in svc.volumes %}
     - {{ vol }}
   {%- endfor -%}
+  {%- if svc.privileged %}
+  privileged: {{ svc.privileged | lower }}
+  {%- endif %}
+  {%- if svc.cgroup %}
+  cgroup: {{ svc.cgroup }}
+  {%- endif %}
 {%- endmacro -%}
 
 name: ap
@@ -24,7 +30,9 @@ services:
 {{ service(svc) | indent(2) }}
 {%- endfor %}
 
+{%- if volumes %}
 volumes:
 {%- for vol in volumes %}
   {{ vol }}:
 {%- endfor %}
+{%- endif %}

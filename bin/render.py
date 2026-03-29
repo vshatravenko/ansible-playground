@@ -5,7 +5,7 @@ from os import path
 import jinja2
 import yaml
 
-DEFAULT_COMPOSE_RECIPE = "config/compose_recipe.yml"
+DEFAULT_RECIPE = "config/recipe.yml"
 TPL_DIR = "tpl"
 COMPOSE_TPL = "docker-compose.yml.j2"
 COMPOSE_OUT = "docker-compose.yml"
@@ -15,7 +15,7 @@ DEFAULT_PLATFORM = "linux/amd64"
 
 
 def main():
-    with open(DEFAULT_COMPOSE_RECIPE, "r") as f:
+    with open(DEFAULT_RECIPE, "r") as f:
         recipe = yaml.safe_load(f)
 
     target = {"services": [], "volumes": []}
@@ -56,6 +56,8 @@ def main():
                     "ports": container["ports"],
                     "volumes": volumes,
                     "platform": container.get("platform", DEFAULT_PLATFORM),
+                    "privileged": container.get("privileged"),
+                    "cgroup": container.get("cgroup"),
                 }
             )
 

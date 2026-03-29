@@ -8,7 +8,7 @@ and pass them to Ansible via a dynamic inventory implementation
 ## Usage
 
 First, add all the desired groups and container configurations
-to [config/compose-recipe.yml](./config/compose-recipe.yml)
+to [config/recipe.yml](./config/recipe.yml)
 Then, render `docker-compose.yml` and the Docker inventory file:
 
 ```sh

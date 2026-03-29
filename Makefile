@@ -1,4 +1,4 @@
-TAG = debian-stable-slim
+TAG = debian-stable-systemd
 IMAGE = valshatravenko/ansible-target:$(TAG)
 TARGET_USER = ansible
 BUILD_ARCH 	?= $(shell uname -m)

@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM valshatravenko/systemd:debian-stable
 
 ARG TARGET_USER=ansible
 

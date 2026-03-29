@@ -3,7 +3,6 @@ filters:
 - include: inventory_hostname.startswith('ap')
 - exclude: true
 groups:
-  deployer: '"deployer" in docker_name'
-  licensemanager: '"licensemanager" in docker_name'
+  postgres: '"postgres" in docker_name'
 plugin: community.docker.docker_containers
 strict: true
