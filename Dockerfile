@@ -12,6 +12,6 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER root
 COPY docker-entrypoint.sh /
+COPY docker-entrypoint.service /etc/systemd/system/
 
 ENV TARGET_USER=$TARGET_USER
-CMD ["/docker-entrypoint.sh"]

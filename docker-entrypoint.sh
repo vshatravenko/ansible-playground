@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ -z "${TARGET_USER}" ]]; then
-    echo '$TARGET_USER must be defined!'
-    exit 1
-fi
+TARGET_USER=${TARGET_USER:"ansible"}
 
 target_home="/home/${TARGET_USER}"
 default_key_path=${target_home}/.ssh/id_ed25519
@@ -27,10 +24,5 @@ fi
 
 echo "${ssh_pub_key}" >>"${auth_keys_path}"
 
-sshd_path=$(which sshd)
-
 echo "Generating host keys"
 ssh-keygen -A
-
-echo "Started sshd"
-$sshd_path -D

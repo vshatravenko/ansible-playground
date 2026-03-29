@@ -1,0 +1,9 @@
+[Unit]
+Description=Docker Entrypoint
+
+[Service]
+Type=oneshot
+ExecStart=/docker-entrypoint.sh
+
+[Install]
+WantedBy=multi-user.target
